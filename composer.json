@@ -6,7 +6,10 @@
     "description": "Colorize is a simple image colorization utility.",
     "authors": [
         {
-            "name": "Jan Papenbrock"
+            "name": "Jan Papenbrock",
+            "email": "j.papenbrock@gruenspar.de",
+            "homepage": "https://github.com/janpapenbrock",
+            "role": "Developer"
         }
     ],
     "autoload": {
