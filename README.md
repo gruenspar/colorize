@@ -21,6 +21,6 @@ Colorize a directory of images with a single color value.
 Parameters
 ----------
 
-- color: hexadecimal color value. Can have 3 (#RGB), 6 (#RRGGBB) or 8 (#AARRGGBB) digits
-- suffix: suffix to append to filename of colored file. If left empty, source file is overwritten.
+- color: Hexadecimal color value. Can have 3 (`#RGB`), 6 (`#RRGGBB`) or 8 (`#AARRGGBB`) digits format.
+- suffix: Suffix to append to filename of colored file. If left empty, source file is overwritten.
 - path: Filename to colorize or directory to colorize all PNG in.
