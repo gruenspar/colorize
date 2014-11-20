@@ -1,0 +1,15 @@
+{
+    "name": "gruenspar/colorize",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/gruenspar/colorize",
+    "description": "Colorize is a simple image colorization utility.",
+    "authors": [
+        {
+            "name": "Jan Papenbrock"
+        }
+    ],
+    "autoload": {
+        "classmap": ["lib"]
+    }
+}

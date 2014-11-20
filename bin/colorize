@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+list(
+    $script,
+    $color,
+    $suffix,
+    $sourcePath
+    ) = $argv;
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+$options = array(
+    'sourcePath' => getcwd() . DIRECTORY_SEPARATOR . $sourcePath,
+    'color'  => $color,
+    'suffix' => $suffix
+);
+
+$colorize = new Colorize($options);
+$colorize->run();
