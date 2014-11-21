@@ -75,6 +75,13 @@ class Colorize
         imagedestroy($im_dst);
     }
 
+    /**
+     * Create target path for given source file. Injects suffix.
+     *
+     * @param string $sourceImagePath Source file path.
+     *
+     * @return string
+     */
     protected function getTargetImagePath($sourceImagePath)
     {
         if ($this->getSuffix() == '') {
@@ -118,9 +125,30 @@ class Colorize
         return $result;
     }
 
+    /**
+     * Get absolute source path.
+     *
+     * @return string
+     */
+    protected function getSourcePath()
+    {
+        $result = $this->getOption('sourcePath');
+
+        if (!substr($result, 0, 1) == DIRECTORY_SEPARATOR) {
+            $result = getcwd() . DIRECTORY_SEPARATOR . $result;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get list of images to colorize, based on specified source path.
+     *
+     * @return array
+     */
     protected function getSourceImages()
     {
-        $sourceImagePath = $this->getOption('sourcePath');
+        $sourceImagePath = $this->getSourcePath();
 
         $result = array();
 

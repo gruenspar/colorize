@@ -28,7 +28,7 @@ list(
     ) = $argv;
 
 $options = array(
-    'sourcePath' => getcwd() . DIRECTORY_SEPARATOR . $sourcePath,
+    'sourcePath' => $sourcePath,
     'color'  => $color,
     'suffix' => $suffix
 );
