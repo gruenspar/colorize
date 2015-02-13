@@ -20,17 +20,38 @@ if ((!$loader = includeIfExists(__DIR__.'/../vendor/autoload.php'))
     exit(1);
 }
 
-list(
-    $script,
-    $color,
-    $suffix,
-    $sourcePath
-    ) = $argv;
+$requiredArguments = array(
+    'script',
+    'color',
+    'suffix',
+    'sourcePath'
+);
 
-$options = array(
-    'sourcePath' => $sourcePath,
-    'color'  => $color,
-    'suffix' => $suffix
+$optionalArguments = array(
+    'targetPath'
+);
+
+$allArguments = array_merge($requiredArguments, $optionalArguments);
+
+$arguments = $argv;
+
+if (count($arguments) < count($requiredArguments)) {
+    die('More arguments required.');
+}
+
+if (count($arguments) < count($allArguments)) {
+    $missingArguments = count($allArguments) - count($arguments);
+    $fillWith = array_fill(0, $missingArguments, null);
+
+    $arguments = array_merge(
+        $arguments,
+        $fillWith
+    );
+}
+
+$options = array_combine(
+    $allArguments,
+    $arguments
 );
 
 $colorize = new Colorize($options);

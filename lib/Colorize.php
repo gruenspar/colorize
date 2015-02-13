@@ -76,6 +76,21 @@ class Colorize
     }
 
     /**
+     * Create directories on given path.
+     *
+     * @param string $path Path
+     *
+     * @return void
+     */
+    protected function createPath($path)
+    {
+        $dir = dirname($path);
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+    }
+
+    /**
      * Create target path for given source file. Injects suffix.
      *
      * @param string $sourceImagePath Source file path.
@@ -84,18 +99,41 @@ class Colorize
      */
     protected function getTargetImagePath($sourceImagePath)
     {
+        $result = $this->replaceSourceWithTargetPath($sourceImagePath);
+
+        $this->createPath($result);
+
         if ($this->getSuffix() == '') {
-            return $sourceImagePath;
+            return $result;
         }
 
-        $extension = $this->getPathExtension($sourceImagePath);
-        $path      = $this->getPathWithoutExtension($sourceImagePath);
+        $extension = $this->getPathExtension($result);
+        $path      = $this->getPathWithoutExtension($result);
 
         $result = sprintf(
             '%s%s.%s',
             $path,
             $this->getSuffix(),
             $extension
+        );
+
+        return $result;
+    }
+
+    /**
+     * In given image path, replace source path with target path.
+     *
+     * @param string $path Path.
+     *
+     * @return string
+     */
+    protected function replaceSourceWithTargetPath($path)
+    {
+        $result = $path;
+        $result = str_replace(
+            $this->getSourcePath(),
+            $this->getTargetPath(),
+            $result
         );
 
         return $result;
@@ -133,6 +171,38 @@ class Colorize
     protected function getSourcePath()
     {
         $result = $this->getOption('sourcePath');
+        $result = $this->getAbsolutePath($result);
+
+        return $result;
+    }
+
+    /**
+     * Get absolute target path.
+     *
+     * @return string
+     */
+    protected function getTargetPath()
+    {
+        $result = $this->getOption('targetPath');
+        if (!$result) {
+            $result = $this->getSourcePath();
+        } else {
+            $result = $this->getAbsolutePath($result);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Make given path absolute.
+     *
+     * @param string $path Absolute or relative path.
+     *
+     * @return string
+     */
+    protected function getAbsolutePath($path)
+    {
+        $result = $path;
 
         if (!substr($result, 0, 1) == DIRECTORY_SEPARATOR) {
             $result = getcwd() . DIRECTORY_SEPARATOR . $result;
